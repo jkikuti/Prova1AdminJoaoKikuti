@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.io.Serializable;
 import java.lang.String;
 
 @Entity
 @Table(name = "item_cardapio")
-public class ItemCardapio {
+public class ItemCardapio implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

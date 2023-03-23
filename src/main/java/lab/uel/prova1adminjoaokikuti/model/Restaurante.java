@@ -2,11 +2,13 @@ package lab.uel.prova1adminjoaokikuti.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "restaurante")
-public class Restaurante {
+public class Restaurante implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
