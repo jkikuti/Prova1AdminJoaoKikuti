@@ -31,8 +31,6 @@ public class WebController {
 
     @GetMapping(value = {"/", "index"})
     public String indexPage(Model model) {
-        model.addAttribute("restaurantes", rRepo.findAll());
-        model.addAttribute("itens", iRepo.findAll());
 
         return "index";
     }
