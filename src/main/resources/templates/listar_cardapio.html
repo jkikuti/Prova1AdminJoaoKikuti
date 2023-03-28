@@ -45,21 +45,18 @@
                     <td>
 
                         <input type="text" th:field="*{nome}">
-                        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 
                     </td>
 
                     <td>
 
                         <input type="text" th:field="*{descricao}">
-                        <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
 
                     </td>
 
                     <td>
 
                         <input type="number" step="0.01" th:field="*{preco}">
-                        <span th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></span>
 
                     </td>
 
