@@ -29,8 +29,6 @@ public class WebController {
     @Autowired
     RestauranteRepository rRepo;
 
-    private static final String SESSION_ITEM = "sessionI";
-
     @GetMapping(value = {"/", "index"})
     public String indexPage(Model model) {
         model.addAttribute("restaurantes", rRepo.findAll());
@@ -105,37 +103,25 @@ public class WebController {
 
     // Pagina Novo Item
     @GetMapping("/cardapio/{id}")
-    public String showItemRestaurante(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+    public String showItemRestaurante(@PathVariable("id") int id, Model model) {
 
         List<ItemCardapio> cardapio = iRepo.findByRestauranteId(id);
 
         model.addAttribute("itemCardapio", new ItemCardapio());
-        model.addAttribute("sessionI", cardapio);
+        model.addAttribute("cardapio", cardapio);
         model.addAttribute("restaurante", rRepo.findById(id).orElse(null));
 
         return "listar_cardapio";
     }
 
     @PostMapping("/adicionar_item/{id}")
-    public String addItemRestaurante(@PathVariable("id") int id, @Valid ItemCardapio itemCardapio, BindingResult result , Model model, HttpServletRequest request) {
+    public String addItemRestaurante(@PathVariable("id") int id, @Valid ItemCardapio itemCardapio) {
 
         Restaurante restaurante = rRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Restaurante não existe"));
 
-        Map<Restaurante, ItemCardapio> cardapio = (Map<Restaurante, ItemCardapio>) request
-                .getSession().getAttribute(SESSION_ITEM);
-
-        if (CollectionUtils.isEmpty(cardapio)) {
-            cardapio = new HashMap<>();
-        }
-
         itemCardapio.setRestaurante(restaurante);
-        cardapio.put(restaurante, itemCardapio);
-
         iRepo.save(itemCardapio);
-
-        request.getSession().setAttribute(SESSION_ITEM, cardapio);
-
 
         return "redirect:/cardapio/"+id;
     }
@@ -144,30 +130,28 @@ public class WebController {
     @GetMapping("/editar_item/{id}")
     public String editItemRestaurante(@PathVariable("id") int id, Model model) {
 
-        List<ItemCardapio> itemCardapio = iRepo.findByRestauranteId(id);
+        ItemCardapio itemCardapio = iRepo.findById(id).orElse(null);
         model.addAttribute("itemCardapio", itemCardapio);
-        model.addAttribute("restaurante", rRepo.findById(id).orElse(null));
 
         return "atualizar_cardapio";
     }
 
     @PostMapping("/atualizar_item/{id}")
-    public String attItemRestaurante(@PathVariable("id") int id, @Valid ItemCardapio itemCardapio, BindingResult result, Model model, HttpServletRequest request) {
-
-        Restaurante restaurante = rRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Restaurante não existe"));
-
-        Map<Restaurante, ItemCardapio> cardapio = (Map<Restaurante, ItemCardapio>) request
-                .getSession().getAttribute(SESSION_ITEM);
-
-        itemCardapio.setRestaurante(restaurante);
-        cardapio.put(restaurante, itemCardapio);
+    public String attItemRestaurante(@Valid ItemCardapio itemCardapio, @PathVariable("id") int id) {
+        itemCardapio.setRestaurante(iRepo.findById(id).get().getRestaurante());
 
         iRepo.save(itemCardapio);
-
-        request.getSession().setAttribute(SESSION_ITEM, cardapio);
-
-        return "redirect:/cardapio/"+id;
+        return "redirect:/cardapio/"+itemCardapio.getRestaurante().getId();
     }
 
+    //Remover
+    @GetMapping("/remover_item/{id}")
+    public String rmvItemRestaurante(@PathVariable("id") int id) {
+
+        ItemCardapio itemCardapio = iRepo.findById(id).orElse(null);
+        iRepo.delete(itemCardapio);
+
+
+        return "redirect:/cardapio/"+itemCardapio.getRestaurante().getId();
+    }
 }

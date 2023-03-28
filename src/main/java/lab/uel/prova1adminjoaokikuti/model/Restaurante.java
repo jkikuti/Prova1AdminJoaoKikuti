@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurante")
-public class Restaurante implements Serializable {
+public class Restaurante{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

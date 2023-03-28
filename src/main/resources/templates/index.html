@@ -13,45 +13,13 @@
 <body>
 
 <div>
-    <table> <!-- table de restaurante -->
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="restaurante : ${restaurantes}">
-            <td th:text="${restaurante.id}"></td>
-            <td th:text="${restaurante.nome}"></td>
-        </tr>
-        </tbody>
-
-    </table>
-</div>
-
-<div>
     <table>
-        <thead> <!-- table de itens -->
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Restaurante</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <tr th:each="item : ${itens}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.nome}"></td>
-            <td th:text="${item.descricao}"></td>
-            <td th:text="${item.preco}"></td>
-            <td th:text="${item.restaurante.nome}"></td>
+        <tr>
+            <td><a href="/listar_restaurante" class="btn btn-primary col-12">restaurantes</a></td>
+            <td><a href="/novo_restaurante" class="btn btn-primary col-12">adiconar restaurante</a></td>
         </tr>
-        </tbody>
+
     </table>
 </div>
 

@@ -28,13 +28,13 @@
 
             <tbody>
 
-            <tr th:each="cardapio : ${sessionI}">
+            <tr th:each="item : ${cardapio}">
 
-                <td th:text="${cardapio.nome}"></td>
-                <td th:text="${cardapio.descricao}"></td>
-                <td th:text="${cardapio.preco}"></td>
-                <td><a class="btn btn-primary w-100" th:href="@{/editar_item/{id} (id=${restaurante.id})}">Editar</a></td>
-                <td><a class="btn btn-primary">Remover</a></td>
+                <td th:text="${item.nome}"></td>
+                <td th:text="${item.descricao}"></td>
+                <td th:text="${item.preco}"></td>
+                <td><a class="btn btn-primary w-100" th:href="@{/editar_item/{id} (id=${item.id})}">Editar</a></td>
+                <td><a class="btn btn-primary" th:href="@{/remover_item/{id} (id=${item.id})}">Remover</a></td>
 
             </tr>
 
@@ -72,6 +72,10 @@
             </tbody>
         </table>
 
+    </div>
+
+    <div>
+        <a href="/listar_restaurante" class="btn btn-primary">Voltar para lista de restaurantes</a>
     </div>
 
 </body>

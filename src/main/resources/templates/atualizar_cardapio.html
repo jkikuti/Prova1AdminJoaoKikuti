@@ -20,12 +20,11 @@
             <td>Descrição</td>
             <td>Preço</td>
 
-
         </tr>
         </thead>
 
         <tbody>
-        <form action="#" th:action="@{/atualizar_item/{id} (id=${restaurante.id})}" th:object="${itemCardapio}" th method="post">
+        <form action="#" th:action="@{/atualizar_item/{id} (id=${itemCardapio.id})}" th:object="${itemCardapio}" th method="post">
 
             <tr>
 
@@ -60,6 +59,7 @@
     </table>
 
 </div>
+
 
 </body>
 </html>
