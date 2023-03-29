@@ -20,20 +20,6 @@ public class Restaurante{
     @OneToMany(mappedBy = "restaurante")
     private List<ItemCardapio> itemCardapio;
 
-    @Override
-    public boolean equals(Object b) {
-        if (!(b instanceof Restaurante)) {
-            return false;
-        }
-
-        return this.hashCode() == b.hashCode();
-    }
-
-    @Override
-    public int hashCode() {
-        return this.id;
-    }
-
     public int getId() {
         return id;
     }
